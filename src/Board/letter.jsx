@@ -9,12 +9,13 @@ const letterState = curAttempt.row > row
   ? (correct ? "correct" : present ? "present" : "absent")
   : "";
 
-useEffect(() => { if (letter !== "" && !correct && !present)
-  {setgreyedKeys((prev) => [...prev, letter]);}
-  else if (letter !== "" && present)
-  {setyellowKeys((prev) => prev.filter((l) => l !== letter));}
-  else if (letter !== "" && correct)
+useEffect(() => {
+  if (letter !== "" && correct)
   {setgreenKeys((prev) => [...prev, letter]);}
+  else if (letter !== "" && present)
+  {setyellowKeys((prev) => [...prev, letter]);}
+  else if (letter !== "" && !correct && !present)
+  {setgreyedKeys((prev) => [...prev, letter]);}
 }, [curAttempt.row]);
 
 return (

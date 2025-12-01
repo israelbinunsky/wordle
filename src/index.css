@@ -57,18 +57,18 @@
 }
 
 
-#big {
+.key.big {
   width: 100px;
 }
-#greyed {
+.key.greyed {
   background-color: #414A4C;
 }
 
-#yellowed {
-  background-color: #F4C430;
+.key.yellowed {
+  background-color: #D5B60A;
 }
-#greened {
-  background-color: #0B6623;
+.key.greened {
+  background-color: #088e58;
 }
 .rowKeyboard {
   flex: 33%;

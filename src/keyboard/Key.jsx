@@ -12,8 +12,16 @@ function Key({keyVal, bigKey, greyed, yellowed, greened}) {
             onCelectLetter(keyVal);
         }
     }
+    const classes = [
+        'key',
+        bigKey ? 'big' : '',
+        greyed ? 'greyed' : '',
+        yellowed ? 'yellowed' : '',
+        greened ? 'greened' : ''
+    ].join(' ');
+
     return (
-        <div className={'key'} id={bigKey ? 'big' : greyed ? 'greyed' : yellowed ? 'yellowed' : greened ? 'greened' : ''}
+        <div className={classes}
  onClick={celectLetter}>
             {keyVal}
         </div>
