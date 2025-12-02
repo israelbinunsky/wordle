@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { AppContext } from '../App.jsx';
-function Letter({col,row}) {
+function Letter({cul,row}) {
 const { board,correctWord, curAttempt, setyellowKeys, setgreenKeys, setgreyedKeys} = useContext(AppContext);
-const letter = board[row][col];
-const correct = correctWord[col] === letter;
+const letter = board[row][cul];
+const correct = correctWord[cul] === letter;
 const present = !correct && correctWord.includes(letter);
 const letterState = curAttempt.row > row 
   ? (correct ? "correct" : present ? "present" : "absent")
@@ -18,8 +18,11 @@ useEffect(() => {
   {setgreyedKeys((prev) => [...prev, letter]);}
 }, [curAttempt.row]);
 
+const curLetter = curAttempt.row === row && curAttempt.cul === cul;
+
+
 return (
-  <div className="letter" id={letterState}>
+  <div className={`letter ${curLetter ? "curLetter" : ""}`} id={letterState}>
     <h2>{letter}</h2>
   </div>
 );

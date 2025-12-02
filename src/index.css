@@ -29,6 +29,10 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.letter.curLetter {
+  border: 2px solid #000000;
+}
+
 .keyboard {
   margin-top: 10px;
 }
