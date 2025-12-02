@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import { boardDefault, generateWordSet } from './words.jsx';
 import Board from "./Board/Board.jsx";
 import Keyboard from './keyboard/keyboard.jsx';
+import GameOver from './GameOver.jsx';
 
 export const AppContext = createContext();
 
@@ -14,7 +15,8 @@ function App() {
   const [greenKeys, setgreenKeys] = useState([]);
 
   const endkeys = { 'מ': 'ם', 'נ': 'ן', 'כ': 'ך', 'פ': 'ף', 'צ': 'ץ' };
-  const [correctWord, setCorrectWord] = useState("תפוח");
+  const [correctWord, setCorrectWord] = useState("");
+  const [endGame, setEndGame] = useState({ gameOver: false, guessedWord: false });
 
   useEffect(() => {
     generateWordSet().then((words) => {
@@ -29,11 +31,19 @@ function App() {
     for (let i = 0; i < 5; i++) {
       currWord += board[curAttempt.row][i];
     }
-    if (wordSet.has(currWord)) {
+   if (wordSet.has(currWord)) {
       setCurAttempt({ ...curAttempt, row: curAttempt.row + 1, cul: 0 });
     } else {
       alert("המילה לא קיימת במאגר");
     }
+    if (currWord === correctWord) {
+      setEndGame({ gameOver: true, guessedWord: true });
+      return;
+    }
+    else if (curAttempt.row === 5) {
+        setEndGame({ gameOver: true, guessedWord: false });
+        return;
+      }
   };
 
   const onDelete = () => {
@@ -58,9 +68,9 @@ function App() {
   return (
     <div className="App">
       <h1 className='title'>WORDLE</h1>
-      <AppContext.Provider value={{ board, setBoard, curAttempt, setCurAttempt, onEnter, onDelete, onCelectLetter, correctWord, endkeys, greyedKeys, setgreyedKeys, yellowKeys, setyellowKeys, greenKeys, setgreenKeys }}>
+      <AppContext.Provider value={{ board, setBoard, curAttempt, setCurAttempt, onEnter, onDelete, onCelectLetter, correctWord, endkeys, greyedKeys, setgreyedKeys, yellowKeys, setyellowKeys, greenKeys, setgreenKeys, endGame, setEndGame }}>
         <Board />
-        <Keyboard />
+        {endGame.gameOver ? <GameOver /> : <Keyboard />}
       </AppContext.Provider>
     </div>
   );
